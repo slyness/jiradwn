@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+require 'bundler/setup'
+Bundler.setup()
+require 'gli'
+require 'jiradwn/version'
+require 'jiradwn/downloader'
+
+include GLI::App
+
+program_desc 'Download a backup file from Jira WebDav'
+version Jiradwn::VERSION.version
+
+#desc 'This is a command line tool'
+#switch [:s, :switch]
+
+desc 'Download a generated backup from Jira Webdav location'
+command :download do |c|
+
+  c.desc 'Jira username for access'
+  c.flag [:u, :username], :default_value => 'jirauser'
+
+  c.desc 'Jira password for access'
+  c.flag [:p, :password], :default_value => 'supersecret'
+
+  c.desc 'Download location for payload'
+  c.flag [:s, :storage], :default_value => '/tmp'
+
+  c.desc 'Jira WebDav endpoint'
+  c.flag [:e, :endpoint], :default_value => 'ssdiabetes.atlassian.net/webdav/backupmanager'
+
+  c.action do |global_options, options, args|
+    download = Jiradwn::Downloader.new
+    download.download_backup()
+  end
+
+end
+
+exit run(ARGV)
