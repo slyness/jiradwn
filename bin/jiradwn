@@ -10,29 +10,58 @@ include GLI::App
 program_desc 'Download a backup file from Jira WebDav'
 version Jiradwn::VERSION.version
 
-#desc 'This is a command line tool'
-#switch [:s, :switch]
+subcommand_option_handling :normal
+
+desc 'Jira username for access'
+flag [:u, :username]
+
+desc 'Jira password for access'
+flag [:p, :password]
 
 desc 'Download a generated backup from Jira Webdav location'
 command :download do |c|
 
-  c.desc 'Jira username for access'
-  c.flag [:u, :username], :default_value => 'jirauser'
-
-  c.desc 'Jira password for access'
-  c.flag [:p, :password], :default_value => 'supersecret'
+  c.desc 'Jira endpoint'
+  c.flag [:e, :endpoint]
 
   c.desc 'Download location for payload'
-  c.flag [:s, :storage], :default_value => '/tmp'
+  c.flag [:s, :storage]
 
-  c.desc 'Jira WebDav endpoint'
-  c.flag [:e, :endpoint], :default_value => 'ssdiabetes.atlassian.net/webdav/backupmanager'
-
-  c.action do |global_options, options, args|
-    download = Jiradwn::Downloader.new
-    download.download_backup()
+  c.action do |global_options,options,args|
+    download = Jiradwn::Downloader.new(global_options,options)
+    download.run!
   end
 
 end
+
+command :backup do |c|
+
+  c.desc 'Download location for payload'
+  c.flag [:s, :storage]
+
+  c.desc 'Jira endpoint'
+  c.flag [:e, :endpoint]
+
+  c.desc 'Jira cookie file'
+  c.flag [:c, :cookie]
+
+  c.action do |global_options,options,args|
+    backup = Jiradwn::Backup.new
+    backup.generate_backup()
+  end
+
+end
+
+#pre do |global,command,options,args|
+  # Pre logic here
+#end
+
+#post do |global,command,options,args|
+  # Post logic here
+#end
+
+#on_error do |exception|
+#  true
+#end
 
 exit run(ARGV)
