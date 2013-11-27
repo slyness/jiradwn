@@ -36,9 +36,6 @@ end
 
 command :backup do |c|
 
-  c.desc 'Download location for payload'
-  c.flag [:s, :storage]
-
   c.desc 'Jira endpoint'
   c.flag [:e, :endpoint]
 
@@ -46,8 +43,8 @@ command :backup do |c|
   c.flag [:c, :cookie]
 
   c.action do |global_options,options,args|
-    backup = Jiradwn::Backup.new
-    backup.generate_backup()
+    backup = Jiradwn::Backup.new(global_options,options)
+    backup.run!
   end
 
 end
