@@ -9,22 +9,19 @@ module Jiradwn
       @endpoint = options[:e]
       @storage = options[:s]
       @today = Time.new
+      @backupfile = "JIRA-backup-" + @today.strftime("%Y%m%d") + ".zip"
     end
 
     def download_backup
       puts "Downloading file from " + @endpoint
 
-      backupfile = "JIRA-backup-" + @today.strftime("%Y%m%d") + ".zip"
-      uri = "https://" + @endpoint + "/webdav/backupmanager/" + backupfile
-      location = File.join(@storage,backupfile)
+      uri = "https://" + @endpoint + "/webdav/backupmanager/" + @backupfile
+      location = File.join(@storage,@backupfile)
       command = "wget --user=#{@user} --password=#{@pass} -c #{uri} -O #{location}"
 
       FileUtils.mkdir_p(@storage)
       system(%(#{command}))
 
-      puts command
-      puts "#{uri}"
-      puts location
     end
 
     def backup_exists

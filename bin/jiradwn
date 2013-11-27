@@ -4,6 +4,7 @@ Bundler.setup()
 require 'gli'
 require 'jiradwn/version'
 require 'jiradwn/downloader'
+require 'jiradwn/backup'
 
 include GLI::App
 
@@ -34,6 +35,7 @@ command :download do |c|
 
 end
 
+desc 'Generate a backup from Jira'
 command :backup do |c|
 
   c.desc 'Jira endpoint'
@@ -57,8 +59,8 @@ end
   # Post logic here
 #end
 
-#on_error do |exception|
-#  true
-#end
+on_error do |exception|
+  true
+end
 
 exit run(ARGV)
