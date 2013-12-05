@@ -9,8 +9,7 @@ module Jiradwn
     def initialize(global,options)
       @user = global[:u]
       @pass = global[:p]
-      @endpoint = options[:e]
-      @cookie = options[:c]
+      @endpoint = global[:e]
     end
 
     def generate_backup

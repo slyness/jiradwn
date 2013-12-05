@@ -6,7 +6,7 @@ module Jiradwn
     def initialize(global,options)
       @user = global[:u]
       @pass = global[:p]
-      @endpoint = options[:e]
+      @endpoint = global[:e]
       @storage = options[:s]
       @today = Time.new
       @backupfile = "JIRA-backup-" + @today.strftime("%Y%m%d") + ".zip"

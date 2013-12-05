@@ -19,11 +19,11 @@ flag [:u, :username]
 desc 'Jira password for access'
 flag [:p, :password]
 
+desc 'Jira endpoint'
+flag [:e, :endpoint]
+
 desc 'Download a generated backup from Jira Webdav location'
 command :download do |c|
-
-  c.desc 'Jira endpoint'
-  c.flag [:e, :endpoint]
 
   c.desc 'Download location for payload'
   c.flag [:s, :storage]
@@ -37,12 +37,6 @@ end
 
 desc 'Generate a backup from Jira'
 command :backup do |c|
-
-  c.desc 'Jira endpoint'
-  c.flag [:e, :endpoint]
-
-  c.desc 'Jira cookie file'
-  c.flag [:c, :cookie]
 
   c.action do |global_options,options,args|
     backup = Jiradwn::Backup.new(global_options,options)
