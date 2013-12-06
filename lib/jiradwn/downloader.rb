@@ -36,9 +36,9 @@ module Jiradwn
           response = dwn.request(request)
           case response.code
           when "200"
-            dwn.request(request) do |response|
+            dwn.request(request) do |download|
               File.open(location, 'w') do |incoming|
-                response.read_body do |chunk|
+                download.read_body do |chunk|
                   incoming.write(chunk)
                 end
               end
@@ -46,10 +46,12 @@ module Jiradwn
             puts "Download Complete"
           when "401"
             puts "Authorization error. Please check your username and password and try again."
+            puts response.body
           end
         end
       rescue Exception => e
         puts "Skipping download. This happened: #{e}"
+        puts response.body
         return
       end
 
