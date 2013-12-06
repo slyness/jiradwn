@@ -1,6 +1,4 @@
 #!/usr/bin/env ruby
-require 'bundler/setup'
-Bundler.setup()
 require 'gli'
 require 'jiradwn/version'
 require 'jiradwn/downloader'

@@ -5,8 +5,8 @@ require 'jiradwn/version'
 Gem::Specification.new do |s|
   s.name = 'jiradwn'
   s.version = Jiradwn::VERSION.version
-  s.summary = 'Jira tool to download backup files from Webdav locations'
-  s.authors = ["Aaron Baer", "Heavy Water"]
+  s.summary = 'Jira tool to backup tickets and download from Webdav'
+  s.authors = ["Aaron Baer", "Heavy Water Operations"]
   s.email = 'oss@hw-ops.com'
   s.homepage = 'http://github.com/heavywater/jiradwn'
   s.description = 'Jira download tool'
