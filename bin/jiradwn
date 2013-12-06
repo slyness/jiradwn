@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+require 'bundler/setup'
+Bundler.setup()
 require 'gli'
 require 'jiradwn/version'
 require 'jiradwn/downloader'
@@ -22,6 +24,9 @@ flag [:e, :endpoint]
 
 desc 'Download a generated backup from Jira Webdav location'
 command :download do |c|
+
+  c.desc 'Date of generated file to download [YYYYMMDD] (optional)'
+  c.flag [:d, :date], :default_value => Time.now.strftime("%Y%m%d")
 
   c.desc 'Download location for payload'
   c.flag [:s, :storage]

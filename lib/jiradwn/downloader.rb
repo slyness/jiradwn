@@ -9,9 +9,9 @@ module Jiradwn
       @user = global[:u]
       @pass = global[:p]
       @endpoint = global[:e]
+      @download_date = options[:d]
       @storage = options[:s]
-      @today = Time.new
-      @backupfile = "JIRA-backup-" + @today.strftime("%Y%m%d") + ".zip"
+      @backupfile = "JIRA-backup-" + @download_date + ".zip"
     end
 
     def download_backup
